@@ -2,7 +2,7 @@ const http = require('http')
 const fs = require('fs')
 
 const server = http.createServer((req, res) => {
-    console.log('request made') // to ma się wykonać, kiedy ktoś zrobi requesta na serwerze
+    console.log('request made') // to i wszystko w nawiasie klamrowym ma się wykonać, kiedy ktoś zrobi requesta na serwerze
     console.log(req.url, req.method)
 
     // set header content type
