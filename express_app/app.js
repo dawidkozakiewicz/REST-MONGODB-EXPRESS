@@ -11,9 +11,9 @@ app.set('view engine', 'ejs')
 app.listen(3000);
 app.get('/', (req, res) => {
     const blogs = [
-        { title: 'Aekjhnk qdh hdwkj erwerwer', snippet: "Asldflkjf fdkf j" },
-        { title: 'Jkedfherujk hn q2we hjjk', snippet: "Kopwejqw djid ws" },
-        { title: 'Dfritlwekfqef sjkffhdkjh h asljkdfh', snippet: "Psdfkjsdh hs kljih h" }
+        // { title: 'Aekjhnk qdh hdwkj erwerwer', snippet: "Asldflkjf fdkf j" },
+        // { title: 'Jkedfherujk hn q2we hjjk', snippet: "Kopwejqw djid ws" },
+        // { title: 'Dfritlwekfqef sjkffhdkjh h asljkdfh', snippet: "Psdfkjsdh hs kljih h" }
     ]
     // res.send("<p>home page</p>")
     // res.sendFile('./views/index.html', { root: __dirname }) - tak było bez ejs'a

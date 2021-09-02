@@ -23,10 +23,13 @@
     </nav>
     <div>
       <h2>All Blogs</h2>
-      <% if (blogs.length > 0) { %> <% blogs.forEach(blog=> { %>
+      <% if (blogs.length > 0) { blogs.forEach(blog=> { %>
       <h3><%= blog.title %></h3>
       <p><%= blog.snippet %></p>
-      <% }); %> <% } %>
+      <p>There is no blogs to display</p>
+      <% })} else { %>
+      <h1>There is no blogs to display</h1>
+      <% } %>
     </div>
   </body>
 </html>
