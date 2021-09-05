@@ -1,14 +1,58 @@
 const express = require('express')
+const morgan = require('morgan')
+const mongoose = require('mongoose')
+const Blog = require('./models/blog')
+
+
 
 //express app
 const app = express();
 
+const dbURI = 'mongodb+srv://tester:ABCabc123@expressapp.opl6z.mongodb.net/ExpressApp?retryWrites=true&w=majority'
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => app.listen(3000))
+    .catch((err) => { console.log(err) })
 // register view engine
 app.set('view engine', 'ejs')
 // app.set('views', 'myViews')  - kiedy chcemy ustawić inny domyślny folder dla widoków nić
 
 //listen for requests
-app.listen(3000);
+// app.listen(3000);
+// middleware & static files
+app.use(express.static('public'))
+
+app.use(morgan('dev'))
+
+app.get('/add-blog', (req, res) => {
+    const blog = new Blog({
+        title: "title",
+        snippet: "snippet",
+        body: "body"
+    })
+    blog.save()
+        .then((result) => {
+            res.send(result)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
+// app.use((req, res, next) => {
+//     console.log('new request made:')
+//     console.log("host: ", req.hostname)
+//     console.log('path: ', req.path)
+//     console.log('method: ', req.method)
+//     next()
+// })
+
+// app.use((req, res, next) => {
+//     console.log('in the next middleware')
+
+//     next()
+// })
+
+
 app.get('/', (req, res) => {
     const blogs = [
         { title: 'Aekjhnk qdh hdwkj erwerwer', snippet: "Asldflkjf fdkf j" },
