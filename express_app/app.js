@@ -25,10 +25,11 @@ app.use(morgan('dev'))
 
 app.get('/add-blog', (req, res) => {
     const blog = new Blog({
-        title: "title",
-        snippet: "snippet",
-        body: "body"
+        title: "Adam",
+        snippet: "Adam to niezły przechuj",
+        body: "Ciało Adama jest boskie"
     })
+
     blog.save()
         .then((result) => {
             res.send(result)

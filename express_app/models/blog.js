@@ -17,6 +17,6 @@ const blogSchema = new Schema({
     }
 }, { timestamps: true })
 
-const Blog = mongoose.model('Blog', blogSchema) // pojedyńcza forma od nazwy kolekcji
+const Blog = mongoose.model('Man', blogSchema) // pojedyńcza forma od nazwy kolekcji
 
 module.exports = Blog;
