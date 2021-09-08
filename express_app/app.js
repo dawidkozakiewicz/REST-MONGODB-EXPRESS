@@ -39,6 +39,26 @@ app.get('/add-blog', (req, res) => {
         })
 })
 
+app.get('/all-blogs', (req, res) => {
+    Blog.find()
+        .then((result) => {
+            res.send(result)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
+app.get('/single-blog', (req, res) => {
+    Blog.findById('6135e48c61c6d34f53e4c22d')
+        .then((result) => {
+            res.send(result)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
 // app.use((req, res, next) => {
 //     console.log('new request made:')
 //     console.log("host: ", req.hostname)
