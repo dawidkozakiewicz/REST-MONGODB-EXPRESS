@@ -20,44 +20,46 @@ app.set('view engine', 'ejs')
 // app.listen(3000);
 // middleware & static files
 app.use(express.static('public'))
-
+app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
-app.get('/add-blog', (req, res) => {
-    const blog = new Blog({
-        title: "Adam",
-        snippet: "Adam to niezły przechuj",
-        body: "Ciało Adama jest boskie"
-    })
+//poodstawowe operacje na bazie danych
 
-    blog.save()
-        .then((result) => {
-            res.send(result)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-})
+// app.get('/add-blog', (req, res) => {
+//     const blog = new Blog({
+//         title: "Adam",
+//         snippet: "Adam to niezły przechuj",
+//         body: "Ciało Adama jest boskie"
+//     })
 
-app.get('/all-blogs', (req, res) => {
-    Blog.find()
-        .then((result) => {
-            res.send(result)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-})
+//     blog.save()
+//         .then((result) => {
+//             res.send(result)
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         })
+// })
 
-app.get('/single-blog', (req, res) => {
-    Blog.findById('6135e48c61c6d34f53e4c22d')
-        .then((result) => {
-            res.send(result)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-})
+// app.get('/all-blogs', (req, res) => {
+//     Blog.find()
+//         .then((result) => {
+//             res.send(result)
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         })
+// })
+
+// app.get('/single-blog', (req, res) => {
+//     Blog.findById('6135e48c61c6d34f53e4c22d')
+//         .then((result) => {
+//             res.send(result)
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         })
+// })
 
 // app.use((req, res, next) => {
 //     console.log('new request made:')
@@ -75,15 +77,7 @@ app.get('/single-blog', (req, res) => {
 
 
 app.get('/', (req, res) => {
-    const blogs = [
-        { title: 'Aekjhnk qdh hdwkj erwerwer', snippet: "Asldflkjf fdkf j" },
-        { title: 'Jkedfherujk hn q2we hjjk', snippet: "Kopwejqw djid ws" },
-        { title: 'Dfritlwekfqef sjkffhdkjh h asljkdfh', snippet: "Psdfkjsdh hs kljih h" }
-    ]
-    // res.send("<p>home page</p>")
-    // res.sendFile('./views/index.html', { root: __dirname }) - tak było bez ejs'a
-    res.render('index', { title: "Home", blogs });
-
+    res.redirect('/blogs')
 })
 
 app.get('/about', (req, res) => {
@@ -91,6 +85,29 @@ app.get('/about', (req, res) => {
     // res.send("<p>about page</p>")
     // res.sendFile('./views/about.html', { root: __dirname })
     res.render('about', { title: "About" });
+})
+
+app.get('/blogs', (req, res) => {
+    Blog.find().sort({ createdAt: -1 })
+        .then((result) => {
+            res.render('index', { title: 'All Blogs', blogs: result })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
+app.post('/blogs', (req, res) => {
+    console.log(req.body)
+    const blog = new Blog(req.body)
+
+    blog.save()
+        .then((result) => {
+            res.redirect('/blogs')
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 })
 
 app.get('/blogs/create', (req, res) => {
