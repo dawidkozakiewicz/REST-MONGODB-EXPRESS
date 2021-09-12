@@ -1,7 +1,8 @@
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const Blog = require('./models/blog')
+const Blog = require('./models/blog');
+const { render } = require('ejs');
 
 
 
@@ -110,12 +111,34 @@ app.post('/blogs', (req, res) => {
         })
 })
 
-app.get('/blogs/create', (req, res) => {
+app.get('/blogs/create', (req, res) => { // ten route powinien być ponad routami z id, ale nie wiem czemu
 
     // res.send("<p>about page</p>")
     // res.sendFile('./views/about.html', { root: __dirname })
     res.render('create', { title: "Create a new blog" });
 })
+
+
+app.get('/blogs/:id', (req, res) => {
+    const id = req.params.id
+    Blog.findById(id)
+        .then(result => {
+            res.render('details', { blog: result, title: 'Blog Details' })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
+app.delete('/blogs/:id', (req, res) => {
+    const id = req.params.id
+    Blog.findByIdAndDelete(id)
+        .then(result => {
+            res.json({ redirect: '/blogs' }) // musimy tak robić, ponieważ "DELETE" poszło jako AJAX z rzeglądarki a nie serwera
+        })
+
+})
+
 
 
 
