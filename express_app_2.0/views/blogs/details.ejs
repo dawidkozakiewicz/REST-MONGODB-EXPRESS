@@ -22,7 +22,7 @@
           method: 'DELETE',
         })
           .then((response) => response.json())
-          .then((data) => (window.location.href = data.redirect)) //zaloguje to, ale w konsoli przeglądarki
+          .then((data) => (window.location.href = data.redirect))
           .catch((err) => {
             console.log(err)
           })
