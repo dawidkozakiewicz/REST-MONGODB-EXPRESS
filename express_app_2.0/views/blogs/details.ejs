@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('../partials/head.ejs') %>
+  <script
+    src="https://kit.fontawesome.com/0100522377.js"
+    crossorigin="anonymous"
+  ></script>
   <body>
     <%- include('../partials/nav.ejs') %>
 
@@ -10,7 +14,9 @@
         <p><%= blog.body %></p>
       </div>
 
-      <a class="delete" data-doc="<%= blog._id %>">delete</a>
+      <a class="delete" data-doc="<%= blog._id %>"
+        ><i class="fas fa-trash-alt"></i
+      ></a>
     </div>
     <%- include('../partials/footer.ejs') %>
     <script>
